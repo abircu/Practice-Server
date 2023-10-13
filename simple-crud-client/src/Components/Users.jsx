@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 
 const Users = () => {
   const [users, setUsers] = useState([]);
+  const [delteUsers, setDeleteUSers] = useState(users);
   useEffect(() => {
     fetch("http://localhost:5000/users")
       .then((res) => res.json())
@@ -17,6 +18,10 @@ const Users = () => {
         console.log(data);
         if (data.deletedCount > 0) {
           alert("data deleted succesfully");
+          const remaining = delteUsers.filter(
+            (delteUser) => delteUser._id !== _id
+          );
+          setDeleteUSers(remaining);
         }
       });
   };

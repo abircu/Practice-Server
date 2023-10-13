@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 const Users = () => {
   const [users, setUsers] = useState([]);
@@ -32,6 +33,9 @@ const Users = () => {
         <div>
           <p key={user._id}>
             {user._id}:{user.name}:{user.email}
+            <Link to={`/update/${user._id}`}>
+              <button className="btn btn-sm btn-secondary mx-2">Update</button>
+            </Link>
             <button
               onClick={() => handleDelete(user._id)}
               className="btn btn-sm"

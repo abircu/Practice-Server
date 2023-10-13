@@ -31,6 +31,13 @@ async function run() {
         const result=await cursor.toArray();
         res.send(result);
     })
+
+    app.get('/users/:id',async(req,res)=>{
+      const id=req.params.id;
+      const query={_id: new ObjectId(id)}
+      const user=await usersCollection.findOne(query)
+      res.send(user);
+    })
     
     app.post('/users',async(req,res)=>{
         const user=req.body;
@@ -39,6 +46,22 @@ async function run() {
         // res.send(result);
         const result=await usersCollection.insertOne(user);
         res.send(result);
+    })
+    // put operation for one customer
+    app.put('/users/:id', async(req,res)=>{
+      const id=req.params.id;
+      const updatedUSers=req.body;
+      console.log("updated user", id,updatedUSers)
+      const filter={_id: new ObjectId(id)}
+      const options={upsert:true}
+      const updatedUSer={
+        $set:{
+          name:updatedUSers.name,
+          email:updatedUSers.email,
+        }
+      }
+      const result=await usersCollection.updateOne(filter,updatedUSer,options);
+      res.send(result)
     })
     // Delete operations o
     app.delete('/users/:id', async(req,res)=>{

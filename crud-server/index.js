@@ -40,7 +40,7 @@ async function run() {
         const result=await usersCollection.insertOne(user);
         res.send(result);
     })
-    // Delete operations
+    // Delete operations o
     app.delete('/users/:id', async(req,res)=>{
         const id=req.params.id;
         console.log('please delete id',id);
